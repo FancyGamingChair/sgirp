@@ -152,7 +152,7 @@ local VehicleSection = Vehicle:CreateSection("Vehicle")
 
 local VSpeed = Vehicle:CreateSlider({
    Name = "Vehicle Speed",
-   Range = {0, 1000},
+   Range = {0, 800},
    Increment = 10,
    Suffix = " Speed",
    CurrentValue = 0,
