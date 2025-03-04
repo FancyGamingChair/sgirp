@@ -2,7 +2,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local MainWindow = Rayfield:CreateWindow({
     Name = "Squid Game Infinity Roleplay", -- Title of the window
-    Icon = "shield-user", -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+    Icon = "shield", -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
     LoadingTitle = "Initialising...",
     LoadingSubtitle = "",
     Theme = "Amethyst", -- Check https://docs.sirius.menu/rayfield/configuration/themes
