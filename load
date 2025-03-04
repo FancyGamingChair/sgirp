@@ -131,6 +131,42 @@ local TeleportBtn = Teleport:CreateButton({
    end,
 })
 
+-- Player Tab:
+local Player = MainWindow:CreateTab("Player", "circle-user-round")
+
+local PlayerSection = Player:CreateSection("Player")
+
+
+
+
+
+
+
+-- Vehicle Tab:
+local Vehicle = MainWindow:CreateTab("Vehicle", "car")
+
+local VehicleSection = Vehicle:CreateSection("Vehicle")
+
+
+
+
+
+
+-- Gamepass Tab:
+local Gamepass = MainWindow:CreateTab("Gamepass", "wallet")
+
+local GamepassSection = Gamepass:CreateSection("Gamepass")
+
+
+
+
+
+
+
+
+
+
+
 
 
 
