@@ -63,6 +63,66 @@ local InfAmmo = Combat:CreateButton({
    end,
 })
 
+local DamageSection = Combat:CreateSection("Damage")
+
+local UserSelector = Combat:CreateInput({
+   Name = "Select User",
+   PlaceholderText = "Enter username, display name, shortened name, 'others', 'all', 'random'",
+   Flag = "UserSelection", -- For referencing later
+   OnChanged = function(Input)
+       UserInput = Input
+   end
+})
+
+local DamageInputField = Combat:CreateInput({
+   Name = "Damage Value",
+   PlaceholderText = "Enter damage amount",
+   Flag = "DamageSelection",
+   NumbersOnly = true, -- Limits input to numerical values
+   OnChanged = function(Input)
+       DamageInput = tonumber(Input)
+   end
+})
+
+Combat:CreateButton({
+   Name = "Execute",
+   Callback = function()
+       if UserInput and DamageInput then
+           print("User selected: ", UserInput)
+           print("Damage value: ", DamageInput)
+
+           -- Damage logic
+           local function damageTargetPlayer(targetPlayerName, damageAmount)
+               local targetPlayer = Players:FindFirstChild(targetPlayerName)
+
+               if targetPlayer then
+                   local character = targetPlayer.Character
+                   if character then
+                       local humanoid = character:FindFirstChild("Humanoid")
+                       if humanoid then
+                           humanoid.Health = humanoid.Health - damageAmount
+                           print(targetPlayerName .. " has been damaged by " .. damageAmount)
+                       --else
+                           --warn("Humanoid not found for the target player.")
+                       end
+                   --else
+                       --warn("Character not found for the target player.")
+                   end
+               --else
+                   --warn("Target player not found.")
+               end
+           end
+
+           -- Execute the damage function
+           damageTargetPlayer(UserInput, DamageInput)
+       --else
+           --print("Please provide valid inputs.")
+       end
+   end
+})
+
+
+
 -- Teleport Tab:
 local Teleport = MainWindow:CreateTab("Teleport", "map-pin")
 
@@ -152,17 +212,6 @@ local NumChanger = PlayerTab:CreateInput({
           warn("Invalid number entered!")
       end
   end,  
-})
-
-local PlayerGamesSection = PlayerTab:CreateSection("Games")
-
-local KillzoneButton = PlayerTab:CreateButton({
-   Name = "Disable Killzones",
-   Callback = function()
-      game.Workspace.GlassPlatformArena.Killzone:Destroy()
-      game.Workspace.TugOfWar.Killzone:Destroy()
-      game.Workspace.RedLightGreenLightMinigame.Killzone:Destroy()
-   end,
 })
 
 -- Vehicle Tab:
