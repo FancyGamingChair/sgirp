@@ -159,7 +159,7 @@ local PlayerGamesSection = PlayerTab:CreateSection("Games")
 local KillzoneButton = PlayerTab:CreateButton({
    Name = "Disable Killzones",
    Callback = function()
-      game.Workspace.GlassPlatfromArena.Killzone:Destroy()
+      game.Workspace.GlassPlatformArena.Killzone:Destroy()
       game.Workspace.TugOfWar.Killzone:Destroy()
       game.Workspace.RedLightGreenLightMinigame.Killzone:Destroy()
    end,
