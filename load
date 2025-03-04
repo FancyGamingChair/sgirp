@@ -97,7 +97,7 @@ local locations = {
     ["Vents"] = CFrame.new(0, 0, 0),
     ["Control Center"] = CFrame.new(0, 0, 0),
     ["Front Man Office"] = CFrame.new(0, 0, 0),
-    ["Secret Entrance"] = CFrame.new(0, 0, 0)
+    ["Secret Entrance"] = CFrame.new(483, 125, 691)
 }
 
 local selectedLocation = "None"
