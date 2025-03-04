@@ -5,7 +5,7 @@ local MainWindow = Rayfield:CreateWindow({
     Icon = "shield", -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
     LoadingTitle = "Initialising...",
     LoadingSubtitle = "",
-    Theme = "DarkBlue", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+    Theme = "Light", -- Check https://docs.sirius.menu/rayfield/configuration/themes
  
     DisableRayfieldPrompts = true,
     DisableBuildWarnings = true, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
@@ -90,14 +90,16 @@ local DamageInputField = Combat:CreateInput({
 Combat:CreateButton({
    Name = "Execute",
    Callback = function()
-       -- Validate inputs.
+       local Players = game:GetService("Players")  -- Ensure Players is defined in this scope
+       
        if not (UserInput and DamageInput) then
            print("Please provide valid inputs for user and damage amount.")
            return
        end
+       
        local damageAmount = DamageInput
+       local localPlayer = Players.LocalPlayer
 
-       -- Function to safely damage a player.
        local function damageTargetPlayer(targetPlayer, damageAmount)
            if targetPlayer then
                local character = targetPlayer.Character
@@ -117,15 +119,15 @@ Combat:CreateButton({
            end
        end
 
-       -- Determine target players based on the UserInput.
+       -- Build the list of target players based on the input.
        local targets = {}
        local lowerInput = string.lower(UserInput)
+
        if lowerInput == "all" then
            for _, player in ipairs(Players:GetPlayers()) do
                targets[#targets + 1] = player
            end
        elseif lowerInput == "others" then
-           local localPlayer = Players.LocalPlayer
            for _, player in ipairs(Players:GetPlayers()) do
                if player ~= localPlayer then
                    targets[#targets + 1] = player
@@ -137,7 +139,7 @@ Combat:CreateButton({
                targets[1] = allPlayers[math.random(1, #allPlayers)]
            end
        else
-           -- Search for partial matches in both Name and DisplayName.
+           -- Check for partial matches in both Name and DisplayName.
            for _, player in ipairs(Players:GetPlayers()) do
                if string.find(string.lower(player.Name), lowerInput, 1, true) or 
                   string.find(string.lower(player.DisplayName), lowerInput, 1, true) then
@@ -151,12 +153,13 @@ Combat:CreateButton({
            return
        end
 
-       -- Damage all found targets.
+       -- Apply damage to each found target.
        for _, target in ipairs(targets) do
            damageTargetPlayer(target, damageAmount)
        end
    end
 })
+
 
 
 -- Teleport Tab:
