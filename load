@@ -5,7 +5,7 @@ local MainWindow = Rayfield:CreateWindow({
     Icon = "shield", -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
     LoadingTitle = "Initialising...",
     LoadingSubtitle = "",
-    Theme = "AmberGlow", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+    Theme = "Green", -- Check https://docs.sirius.menu/rayfield/configuration/themes
  
     DisableRayfieldPrompts = true,
     DisableBuildWarnings = true, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
@@ -70,7 +70,7 @@ local DamageInput
 
 local UserSelector = Combat:CreateInput({
    Name = "Select User",
-   Placeholder = "Enter username",
+   PlaceholderText = "Enter username",
    Flag = "UserSelection", -- For referencing later
    Callback = function(text)
        UserInput = text
@@ -79,7 +79,7 @@ local UserSelector = Combat:CreateInput({
 
 local DamageInputField = Combat:CreateInput({
    Name = "Damage Value",
-   Placeholder = "Enter damage amount",
+   PlaceholderText = "Enter damage amount",
    Flag = "DamageSelection",
    NumbersOnly = true, -- Limits input to numerical values
    Callback = function(text)
