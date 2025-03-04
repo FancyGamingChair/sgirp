@@ -132,14 +132,34 @@ local TeleportBtn = Teleport:CreateButton({
 })
 
 -- Player Tab:
-local Player = MainWindow:CreateTab("Player", "circle-user-round")
+local PlayerTab = MainWindow:CreateTab("Player", "circle-user-round")
 
-local PlayerSection = Player:CreateSection("Player")
---Walkspeed slider:
+local PlayerSection = PlayerTab:CreateSection("Player")
 
+local NumChanger = PlayerTab:CreateInput({
+   Name = "Change Player Number",
+   PlaceholderText = "number",
+   NumbersOnly = true, -- If the user can only type numbers. Remove or set to false if none.
+   CharacterLimit = 15, --max character limit. Remove or set to false
+   OnEnter = true, -- Will callback only if the user pressed ENTER while being focused on the the box.
+   RemoveTextAfterFocusLost = true, -- Speaks for itself.
+   Callback = function(Text)
+   game:GetService("ReplicatedStorage").RemoteEvents.ChangeNumber:FireServer(Text)
+   end,
+})
 
+local PlayerGamesSection = PlayerTab:CreateSection("Games")
 
-
+local Toggle = PlayerTab:CreateToggle({
+   Name = "Disable Killzones",
+   CurrentValue = false,
+   Flag = "KillzoneToggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+      game.Workspace.GlassPlatformArea.Killzone.CanTouch = not Value
+      game.Workspace.TugOfWar.Killzone.CanTouch = not Value
+      game.Workspace.RedLightGreenLightMinigame.ZoneContainers.ArenaZone.CanTouch = not Value
+   end,
+})
 
 
 
