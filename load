@@ -1,8 +1,8 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local MainWindow = Rayfield:CreateWindow({
-    Name = "Main",
-    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+    Name = "Squid Game Infinity Roleplay Hub", -- Title of the window
+    Icon = "shield-ellipsis", -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
     LoadingTitle = "Initialising...",
     LoadingSubtitle = "Please wait while we load the interface.",
     Theme = "Amethyst", -- Check https://docs.sirius.menu/rayfield/configuration/themes
@@ -19,10 +19,10 @@ local MainWindow = Rayfield:CreateWindow({
     Discord = {
        Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
        Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+       RememberJoins = false -- Set this to false to make them join the discord every time they load it up
     },
  
-    KeySystem = true, -- Set this to true to use our key system
+    KeySystem = false, -- Set this to true to use our key system
     KeySettings = {
        Title = "SGIRP Hub",
        Subtitle = "Key System",
