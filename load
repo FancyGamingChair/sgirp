@@ -145,8 +145,10 @@ local PlayerSection = Player:CreateSection("Player")
 
 -- Vehicle Tab:
 local Vehicle = MainWindow:CreateTab("Vehicle", "car")
-
 local VehicleSection = Vehicle:CreateSection("Vehicle")
+
+-- Create a text label that shows when the player is not in a vehicle
+local NotInVehicleLabel = Vehicle:CreateLabel("Not in Vehicle")
 
 local VSpeed = Vehicle:CreateSlider({
    Name = "Vehicle Speed",
@@ -178,14 +180,16 @@ local VSpeed = Vehicle:CreateSlider({
    end,
 })
 
--- Function to check if player is sitting and update slider
+-- Function to check if the player is in a vehicle and update slider and label visibility
 local function updateSlider()
     local player = game:GetService("Players").LocalPlayer
     local character = player.Character
+    local inVehicle = false
     
     if character then
         for _, seat in pairs(workspace:GetDescendants()) do
             if seat:IsA("VehicleSeat") and seat.Occupant and seat.Occupant.Parent == character then
+                inVehicle = true
                 local vehicle = seat.Parent
                 if vehicle and vehicle:FindFirstChild("Stats") then
                     local stats = vehicle.Stats
@@ -199,11 +203,18 @@ local function updateSlider()
             end
         end
     end
+
+    if inVehicle then
+        VSpeed:SetVisible(true)
+        NotInVehicleLabel:SetVisible(false)
+    else
+        VSpeed:SetVisible(false)
+        NotInVehicleLabel:SetVisible(true)
+    end
 end
 
--- Continuously check if the player is sitting and update the slider accordingly
+-- Continuously check if the player is in a vehicle and update the UI accordingly
 local function monitorSitting()
-    local player = game:GetService("Players").LocalPlayer
     while true do
         updateSlider()
         wait(1) -- Adjust this interval if needed
@@ -211,6 +222,12 @@ local function monitorSitting()
 end
 
 spawn(monitorSitting)
+
+
+
+
+
+
 
 -- Gamepass Tab:
 local Gamepass = MainWindow:CreateTab("Gamepass", "wallet")
