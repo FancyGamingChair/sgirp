@@ -68,19 +68,66 @@ local Teleport = MainWindow:CreateTab("Teleport", "map-pin")
 
 local TeleportSection = Teleport:CreateSection("Teleport")
 
+local locations = {
+    ["Player Sleeping Quarters"] = function()
+        local psq = workspace:FindFirstChild("PSQ")
+        if psq then
+            local sets = psq:GetChildren()
+            local spawnLocations = {}
+            
+            for _, set in pairs(sets) do
+                if set:IsA("Model") and set.Name == "Set" then
+                    for _, obj in pairs(set:GetChildren()) do
+                        if obj:IsA("SpawnLocation") then
+                            table.insert(spawnLocations, obj)
+                        end
+                    end
+                end
+            end
+            
+            if #spawnLocations > 0 then
+                local randomSpawn = spawnLocations[math.random(1, #spawnLocations)]
+                return randomSpawn.CFrame + Vector3.new(0, 2.5, 0)
+            end
+        end
+        return nil
+    end,
+    ["Vents"] = CFrame.new(0, 0, 0),
+    ["Control Center"] = CFrame.new(0, 0, 0),
+    ["Front Man Office"] = CFrame.new(0, 0, 0),
+    ["Secret Entrance"] = CFrame.new(0, 0, 0)
+}
+
+local selectedLocation = "None"
+
 local Dropdown = Teleport:CreateDropdown({
    Name = "Location",
    Options = {"Player Sleeping Quarters","Vents","Control Center","Front Man Office","Secret Entrance"},
    CurrentOption = {"None"},
    MultipleOptions = false,
-   Flag = "TeleportDropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "TeleportDropdown1",
    Callback = function(Options)
-   -- The function that takes place when the selected option is changed
-   -- The variable (Options) is a table of strings for the current selected options
+       selectedLocation = Options[1] or "None"
    end,
 })
 
-
+local TeleportBtn = Teleport:CreateButton({
+   Name = "Teleport",
+   Callback = function()
+       local player = game:GetService("Players").LocalPlayer
+       if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+           if selectedLocation ~= "None" then
+               local destination = locations[selectedLocation]
+               if type(destination) == "function" then
+                   destination = destination()
+               end
+               if destination then
+                   player.Character.HumanoidRootPart.CFrame = destination
+               end
+           end
+       end
+   end,
+})
 
 
 
