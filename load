@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/FancyGamingChair/sgirp/refs/heads/main/init'))()
 
 local MainWindow = Rayfield:CreateWindow({
     Name = "Squid Game Infinity Roleplay", -- Title of the window
