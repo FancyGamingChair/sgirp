@@ -135,6 +135,7 @@ local TeleportBtn = Teleport:CreateButton({
 local Player = MainWindow:CreateTab("Player", "circle-user-round")
 
 local PlayerSection = Player:CreateSection("Player")
+--Walkspeed slider:
 
 
 
@@ -147,10 +148,69 @@ local Vehicle = MainWindow:CreateTab("Vehicle", "car")
 
 local VehicleSection = Vehicle:CreateSection("Vehicle")
 
+local VSpeed = Vehicle:CreateSlider({
+   Name = "Vehicle Speed",
+   Range = {0, 1000},
+   Increment = 10,
+   Suffix = " Speed",
+   CurrentValue = 0,
+   Flag = "VehicleSpeedSlider",
+   Callback = function(Value)
+       local player = game:GetService("Players").LocalPlayer
+       local character = player.Character
+       
+       if character then
+           for _, seat in pairs(workspace:GetDescendants()) do
+               if seat:IsA("VehicleSeat") and seat.Occupant and seat.Occupant.Parent == character then
+                   local vehicle = seat.Parent
+                   if vehicle and vehicle:FindFirstChild("Stats") then
+                       local stats = vehicle.Stats
+                       local maxSpeed = stats:FindFirstChild("MaxSpeed")
+                       
+                       if maxSpeed and maxSpeed:IsA("NumberValue") then
+                           maxSpeed.Value = Value
+                       end
+                   end
+                   break
+               end
+           end
+       end
+   end,
+})
 
+-- Function to check if player is sitting and update slider
+local function updateSlider()
+    local player = game:GetService("Players").LocalPlayer
+    local character = player.Character
+    
+    if character then
+        for _, seat in pairs(workspace:GetDescendants()) do
+            if seat:IsA("VehicleSeat") and seat.Occupant and seat.Occupant.Parent == character then
+                local vehicle = seat.Parent
+                if vehicle and vehicle:FindFirstChild("Stats") then
+                    local stats = vehicle.Stats
+                    local maxSpeed = stats:FindFirstChild("MaxSpeed")
+                    
+                    if maxSpeed and maxSpeed:IsA("NumberValue") then
+                        VSpeed:Set(maxSpeed.Value)
+                    end
+                end
+                break
+            end
+        end
+    end
+end
 
+-- Continuously check if the player is sitting and update the slider accordingly
+local function monitorSitting()
+    local player = game:GetService("Players").LocalPlayer
+    while true do
+        updateSlider()
+        wait(1) -- Adjust this interval if needed
+    end
+end
 
-
+spawn(monitorSitting)
 
 -- Gamepass Tab:
 local Gamepass = MainWindow:CreateTab("Gamepass", "wallet")
