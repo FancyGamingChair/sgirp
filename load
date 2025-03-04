@@ -94,9 +94,9 @@ local locations = {
         end
         return nil
     end,
-    ["Vents"] = CFrame.new(0, 0, 0),
-    ["Control Center"] = CFrame.new(0, 0, 0),
-    ["Front Man Office"] = CFrame.new(0, 0, 0),
+    ["Vents"] = CFrame.new(641, 21, 32),
+    ["Control Center"] = CFrame.new(864, 233, 1357),
+    ["Front Man Office"] = CFrame.new(317, 266, 1495),
     ["Secret Entrance"] = CFrame.new(483, 125, 691)
 }
 
