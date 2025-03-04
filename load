@@ -155,7 +155,7 @@ local NumChanger = PlayerTab:CreateInput({
 
 local PlayerGamesSection = PlayerTab:CreateSection("Games")
 
-local KillzoneToggle = Tab:CreateToggle({
+local KillzoneToggle = PlayerTab:CreateToggle({
    Name = "Toggle Killzones",
    CurrentValue = false,
    Flag = "KillzoneToggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
