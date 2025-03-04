@@ -155,38 +155,14 @@ local NumChanger = PlayerTab:CreateInput({
 
 local PlayerGamesSection = PlayerTab:CreateSection("Games")
 
-local Toggle = PlayerTab:CreateToggle({
-   Name = "Disable Killzones",
+local KillzoneToggle = Tab:CreateToggle({
+   Name = "Toggle Killzones",
    CurrentValue = false,
    Flag = "KillzoneToggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-      local glassArea = game.Workspace:FindFirstChild("GlassPlatformArea")
-      if glassArea and glassArea:FindFirstChild("Killzone") then
-          glassArea.Killzone.CanTouch = not Value
-      --else
-          --warn("GlassPlatformArea or its Killzone is missing!")
-      end
-  
-      local tugOfWar = game.Workspace:FindFirstChild("TugOfWar")
-      if tugOfWar and tugOfWar:FindFirstChild("Killzone") then
-          tugOfWar.Killzone.CanTouch = not Value
-      --else
-          --warn("TugOfWar or its Killzone is missing!")
-      end
-  
-      local rlgm = game.Workspace:FindFirstChild("RedLightGreenLightMinigame")
-      if rlgm and rlgm:FindFirstChild("ZoneContainers") then
-          local arenaZone = rlgm.ZoneContainers:FindFirstChild("ArenaZone")
-          if arenaZone then
-              arenaZone.CanTouch = not Value
-          --else
-              --warn("ArenaZone is missing!")
-          end
-      --else
-          --warn("RedLightGreenLightMinigame or ZoneContainers is missing!")
-      end
-  end,
-  
+   print(Value)
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   end,
 })
 
 
