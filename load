@@ -39,7 +39,7 @@ local Combat = MainWindow:CreateTab("Combat", "swords") -- Title, Image
 
 local AmmoSection = Combat:CreateSection("Ammo")
 
-local InfAmmo = AmmoSection:CreateButton({
+local InfAmmo = Combat:CreateButton({
    Name = "Infinite Ammo",
    Callback = function()
    print("Success!")-- The function that takes place when the button is pressed
