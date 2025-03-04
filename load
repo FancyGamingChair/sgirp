@@ -155,16 +155,16 @@ local NumChanger = PlayerTab:CreateInput({
 
 local PlayerGamesSection = PlayerTab:CreateSection("Games")
 
-local KillzoneToggle = PlayerTab:CreateToggle({
+local KToggle = PlayerTab:CreateToggle({
    Name = "Toggle Killzones",
    CurrentValue = false,
-   Flag = "KillzoneToggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "KToggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-   print(Value)
+      print(Value)
+   -- The function that takes place when the toggle is pressed
    -- The variable (Value) is a boolean on whether the toggle is true or false
    end,
 })
-
 
 
 -- Vehicle Tab:
