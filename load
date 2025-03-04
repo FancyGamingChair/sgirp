@@ -1,8 +1,8 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local MainWindow = Rayfield:CreateWindow({
-    Name = "Squid Game Infinity Roleplay Hub", -- Title of the window
-    Icon = "shield-ellipsis", -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+    Name = "Squid Game Infinity Roleplay", -- Title of the window
+    Icon = "shield-user", -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
     LoadingTitle = "Initialising...",
     LoadingSubtitle = "Please wait while we load the interface.",
     Theme = "Amethyst", -- Check https://docs.sirius.menu/rayfield/configuration/themes
@@ -37,7 +37,9 @@ local MainWindow = Rayfield:CreateWindow({
 -- Tab:
 local Combat = MainWindow:CreateTab("Combat", "swords") -- Title, Image
 
-local InfAmmo = Combat:CreateButton({
+local AmmoSection = Combat:CreateSection("Ammo")
+
+local InfAmmo = AmmoSection:CreateButton({
    Name = "Infinite Ammo",
    Callback = function()
    print("Success!")-- The function that takes place when the button is pressed
