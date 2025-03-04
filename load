@@ -9,11 +9,5 @@ local Combat = Rayfield:CreateWindow({
  
     DisableRayfieldPrompts = false,
     DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
- 
-    ConfigurationSaving = {
-       Enabled = false,
-       FolderName = nil, -- Create a custom folder for your hub/game
-       FileName = "Big Hub"
-    },
 
 Rayfield:LoadConfiguration()
