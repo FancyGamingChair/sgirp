@@ -7,8 +7,8 @@ local MainWindow = Rayfield:CreateWindow({
     LoadingSubtitle = "",
     Theme = "Amethyst", -- Check https://docs.sirius.menu/rayfield/configuration/themes
  
-    DisableRayfieldPrompts = false,
-    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+    DisableRayfieldPrompts = true,
+    DisableBuildWarnings = true, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
  
     ConfigurationSaving = {
        Enabled = false,
