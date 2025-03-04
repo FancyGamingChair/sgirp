@@ -70,24 +70,26 @@ local TeleportSection = Teleport:CreateSection("Teleport")
 
 local locations = {
     ["Player Sleeping Quarters"] = function()
-        local psq = workspace:FindFirstChild("PSQ")
-        if psq then
-            local sets = psq:GetChildren()
-            local spawnLocations = {}
-            
-            for _, set in pairs(sets) do
-                if set:IsA("Model") and set.Name == "Set" then
-                    for _, obj in pairs(set:GetChildren()) do
-                        if obj:IsA("SpawnLocation") then
-                            table.insert(spawnLocations, obj)
+        local spawnFolder = workspace:FindFirstChild("SpawnLocations")
+        if spawnFolder then
+            local playerSpawns = spawnFolder:FindFirstChild("PlayerSpawns")
+            if playerSpawns then
+                local spawnLocations = {}
+                
+                for _, set in pairs(playerSpawns:GetChildren()) do
+                    if set:IsA("Model") and set.Name == "Set" then
+                        for _, spawn in pairs(set:GetChildren()) do
+                            if spawn:IsA("SpawnLocation") and spawn.Name == "SpawnLocation" then
+                                table.insert(spawnLocations, spawn)
+                            end
                         end
                     end
                 end
-            end
-            
-            if #spawnLocations > 0 then
-                local randomSpawn = spawnLocations[math.random(1, #spawnLocations)]
-                return randomSpawn.CFrame + Vector3.new(0, 2.5, 0)
+                
+                if #spawnLocations > 0 then
+                    local randomSpawn = spawnLocations[math.random(1, #spawnLocations)]
+                    return randomSpawn.CFrame + Vector3.new(0, 2.5, 0)
+                end
             end
         end
         return nil
