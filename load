@@ -144,8 +144,13 @@ local NumChanger = PlayerTab:CreateInput({
    OnEnter = true, -- Will callback only if the user pressed ENTER while being focused on the the box.
    RemoveTextAfterFocusLost = true, -- Speaks for itself.
    Callback = function(Text)
-   game:GetService("ReplicatedStorage").RemoteEvents.ChangeNumber:FireServer(Text)
-   end,
+      local num = tonumber(Text)
+      if num then
+          game.ReplicatedStorage.RemoteEvents.ChangeNumber:FireServer(num)
+      else
+          warn("Invalid number entered!")
+      end
+  end,  
 })
 
 local PlayerGamesSection = PlayerTab:CreateSection("Games")
@@ -155,10 +160,33 @@ local Toggle = PlayerTab:CreateToggle({
    CurrentValue = false,
    Flag = "KillzoneToggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-      game.Workspace.GlassPlatformArea.Killzone.CanTouch = not Value
-      game.Workspace.TugOfWar.Killzone.CanTouch = not Value
-      game.Workspace.RedLightGreenLightMinigame.ZoneContainers.ArenaZone.CanTouch = not Value
-   end,
+      local glassArea = game.Workspace:FindFirstChild("GlassPlatformArea")
+      if glassArea and glassArea:FindFirstChild("Killzone") then
+          glassArea.Killzone.CanTouch = not Value
+      --else
+          --warn("GlassPlatformArea or its Killzone is missing!")
+      end
+  
+      local tugOfWar = game.Workspace:FindFirstChild("TugOfWar")
+      if tugOfWar and tugOfWar:FindFirstChild("Killzone") then
+          tugOfWar.Killzone.CanTouch = not Value
+      --else
+          --warn("TugOfWar or its Killzone is missing!")
+      end
+  
+      local rlgm = game.Workspace:FindFirstChild("RedLightGreenLightMinigame")
+      if rlgm and rlgm:FindFirstChild("ZoneContainers") then
+          local arenaZone = rlgm.ZoneContainers:FindFirstChild("ArenaZone")
+          if arenaZone then
+              arenaZone.CanTouch = not Value
+          --else
+              --warn("ArenaZone is missing!")
+          end
+      --else
+          --warn("RedLightGreenLightMinigame or ZoneContainers is missing!")
+      end
+  end,
+  
 })
 
 
