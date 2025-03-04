@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/FancyGamingChair/sgirp/refs/heads/main/init'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local MainWindow = Rayfield:CreateWindow({
     Name = "Squid Game Infinity Roleplay", -- Title of the window
@@ -65,22 +65,25 @@ local InfAmmo = Combat:CreateButton({
 
 local DamageSection = Combat:CreateSection("Damage")
 
+local UserInput
+local DamageInput
+
 local UserSelector = Combat:CreateInput({
    Name = "Select User",
-   PlaceholderText = "Enter username, display name, shortened name, 'others', 'all', 'random'",
+   Placeholder = "Enter username",
    Flag = "UserSelection", -- For referencing later
-   OnChanged = function(Input)
-       UserInput = Input
+   Callback = function(text)
+       UserInput = text
    end
 })
 
 local DamageInputField = Combat:CreateInput({
    Name = "Damage Value",
-   PlaceholderText = "Enter damage amount",
+   Placeholder = "Enter damage amount",
    Flag = "DamageSelection",
    NumbersOnly = true, -- Limits input to numerical values
-   OnChanged = function(Input)
-       DamageInput = tonumber(Input)
+   Callback = function(text)
+       DamageInput = tonumber(text)
    end
 })
 
@@ -88,13 +91,13 @@ Combat:CreateButton({
    Name = "Execute",
    Callback = function()
        if UserInput and DamageInput then
-           print("User selected: ", UserInput)
-           print("Damage value: ", DamageInput)
+           print("User selected:", UserInput)
+           print("Damage value:", DamageInput)
 
-           -- Damage logic
+           -- LocalScript to instantly damage a targeted player
            local function damageTargetPlayer(targetPlayerName, damageAmount)
                local targetPlayer = Players:FindFirstChild(targetPlayerName)
-
+               
                if targetPlayer then
                    local character = targetPlayer.Character
                    if character then
@@ -102,25 +105,24 @@ Combat:CreateButton({
                        if humanoid then
                            humanoid.Health = humanoid.Health - damageAmount
                            print(targetPlayerName .. " has been damaged by " .. damageAmount)
-                       --else
-                           --warn("Humanoid not found for the target player.")
+                       else
+                           warn("Humanoid not found for the target player.")
                        end
-                   --else
-                       --warn("Character not found for the target player.")
+                   else
+                       warn("Character not found for the target player.")
                    end
-               --else
-                   --warn("Target player not found.")
+               else
+                   warn("Target player not found.")
                end
            end
 
-           -- Execute the damage function
+           -- Execute the damage function with the provided inputs
            damageTargetPlayer(UserInput, DamageInput)
-       --else
-           --print("Please provide valid inputs.")
+       else
+           print("Please provide valid inputs.")
        end
    end
 })
-
 
 
 -- Teleport Tab:
