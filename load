@@ -42,7 +42,24 @@ local AmmoSection = Combat:CreateSection("Ammo")
 local InfAmmo = Combat:CreateButton({
    Name = "Infinite Ammo",
    Callback = function()
-   print("Success!")-- The function that takes place when the button is pressed
+      --InfAmmo script
+      local player = game:GetService("Players").LocalPlayer
+
+      local function updateAmmo(container)
+          for _, tool in pairs(container:GetChildren()) do
+              if tool:IsA("Tool") then
+                  local ammoValue = tool:FindFirstChild("CurrentAmmo")
+                  if ammoValue and ammoValue:IsA("IntValue") then
+                      ammoValue.Value = 99999999
+                  end
+              end
+          end
+      end
+      
+      updateAmmo(player.Backpack)
+      if player.Character then
+          updateAmmo(player.Character)
+      end
    end,
 })
 
@@ -54,6 +71,8 @@ local InfAmmo = Combat:CreateButton({
 
 --Reload Tab:
 local Reload = MainWindow:CreateTab("Reload", "refresh-ccw")
+
+local ReloadSection = Reload:CreateSection("Reload")
 
 local ReloadBtn = Reload:CreateButton({
    Name = "Reload",
