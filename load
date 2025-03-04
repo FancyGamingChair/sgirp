@@ -97,14 +97,15 @@ local locations = {
     ["Vents"] = CFrame.new(641, 21, 32),
     ["Control Center"] = CFrame.new(864, 233, 1357),
     ["Front Man Office"] = CFrame.new(317, 266, 1495),
-    ["Secret Entrance"] = CFrame.new(483, 125, 691)
+    ["Secret Entrance"] = CFrame.new(483, 125, 691),
+    ["Private Warehouse"] = CFrame.new(49, 1359, -563)
 }
 
 local selectedLocation = "None"
 
 local Dropdown = Teleport:CreateDropdown({
    Name = "Location",
-   Options = {"Player Sleeping Quarters","Vents","Control Center","Front Man Office","Secret Entrance"},
+   Options = {"Player Sleeping Quarters","Vents","Control Center","Front Man Office","Secret Entrance","Private Warehouse"},
    CurrentOption = {"None"},
    MultipleOptions = false,
    Flag = "TeleportDropdown1",
@@ -155,17 +156,14 @@ local NumChanger = PlayerTab:CreateInput({
 
 local PlayerGamesSection = PlayerTab:CreateSection("Games")
 
-local KToggle = PlayerTab:CreateToggle({
-   Name = "Toggle Killzones",
-   CurrentValue = false,
-   Flag = "KToggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-      print(Value)
-   -- The function that takes place when the toggle is pressed
-   -- The variable (Value) is a boolean on whether the toggle is true or false
+local KillzoneButton = PlayerTab:CreateButton({
+   Name = "Disable Killzones",
+   Callback = function()
+      game.Workspace.GlassPlatfromArena.Killzone:Destroy()
+      game.Workspace.TugOfWar.Killzone:Destroy()
+      game.Workspace.RedLightGreenLightMinigame.Killzone:Destroy()
    end,
 })
-
 
 -- Vehicle Tab:
 local Vehicle = MainWindow:CreateTab("Vehicle", "car")
