@@ -34,7 +34,7 @@ local MainWindow = Rayfield:CreateWindow({
     }
  })
 
--- Tab:
+-- Combat Tab:
 local Combat = MainWindow:CreateTab("Combat", "swords") -- Title, Image
 
 local AmmoSection = Combat:CreateSection("Ammo")
@@ -43,6 +43,22 @@ local InfAmmo = Combat:CreateButton({
    Name = "Infinite Ammo",
    Callback = function()
    print("Success!")-- The function that takes place when the button is pressed
+   end,
+})
+
+
+
+
+
+
+
+--Reload Tab:
+local Reload = MainWindow:CreateTab("Reload", "refresh-ccw")
+
+local ReloadBtn = Reload:CreateButton({
+   Name = "Reload",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/FancyGamingChair/sgirp/refs/heads/main/load",true))()
    end,
 })
 
